@@ -1,5 +1,5 @@
 <template>
-  <v-main class="fill-height pa-0">
+  <v-main class="fill-height pa-0 black">
 
     <v-row
       class="pb-0"
@@ -9,7 +9,7 @@
         md="7"
         lg="7"
         xl="7"
-        class="px-0 pb-0"
+        class="px-0 pb-0 ml-3 fixed"
         align="center"
         justify="center"
       >
@@ -17,7 +17,7 @@
           dark
           src="@/assets/auth-background.jpg"
           height="100vh"
-            content-class="my-auto"
+          content-class="my-auto"
           class="ma-0"
         >
           <v-spacer>
@@ -42,6 +42,8 @@
         </v-spacer>
         </v-img>
       </v-col>
+
+      <v-spacer/>
 
       <v-col
         cols="12"
