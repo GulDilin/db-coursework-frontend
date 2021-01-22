@@ -61,7 +61,7 @@
 
               <v-select
                 v-model="roles"
-                :rules="[ rules.required ]"
+                :rules="[ rules.required, rules.oneLength ]"
                 :items="availableRoles"
                 label="Choose roles"
                 outlined
@@ -72,6 +72,45 @@
                 searchable
               >
               </v-select>
+
+              <h4 class="font-weight-light">Personal Data</h4>
+
+              <v-text-field
+                v-model="firstName"
+                :rules="[ rules.required, rules.azString, rules.counter ]"
+                label="First name"
+                outlined
+                dense
+              >
+              </v-text-field>
+
+              <v-text-field
+                v-model="lastName"
+                :rules="[ rules.required, rules.azString, rules.counter ]"
+                label="Last name"
+                outlined
+                dense
+              >
+              </v-text-field>
+
+              <v-select
+                v-model="sex"
+                :rules="[ rules.required ]"
+                :items="sexes"
+                label="Sex"
+                outlined
+                dense
+              >
+              </v-select>
+
+              <v-text-field
+                v-model="placeOfBirth"
+                :rules="[ rules.required, rules.azString ]"
+                label="Place of birth"
+                outlined
+                dense
+              >
+              </v-text-field>
 
             </v-form>
           </v-card-text>
@@ -114,9 +153,15 @@
         password: "",
         confirmPassword: "",
         email: "",
-        roles: "",
+        roles: [],
+
+        firstName: "",
+        lastName: "",
+        sex: "",
+        placeOfBirth: "",
 
         availableRoles: ["Admin", "Artist"],
+        sexes: ["male", "female"],
 
         rules: {
           ...RULES,
