@@ -2,6 +2,7 @@
   <v-img
     src="@/assets/backgrounds/anime-bg-3.jpg"
     class="fill-height"
+    min-height="100vh"
     gradient="#00000070, #00000030"
   >
     <v-col
@@ -46,6 +47,7 @@
             <v-btn
               outlined
               color="primary"
+              :to="{ name: 'main' }"
             >
               Sign in
             </v-btn>
