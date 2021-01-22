@@ -4,7 +4,7 @@ const state = {
 };
 
 const getters = {
-  getNotifications: state => state.notifications;
+  getNotifications: state => state.notifications,
 };
 
 const mutations = {
@@ -18,8 +18,8 @@ const mutations = {
 };
 
 const actions = {
-  ADD_NOTIFICATION: ({commit, state}, payload) => {
-    let default = {
+  PUSH_NOTIFICATION: ({ commit, state, dispatch }, payload) => {
+    let defaultNotification = {
       title: '',
       text: '',
       type: 'info',
@@ -27,7 +27,7 @@ const actions = {
     };
 
     payload = {
-      ...default,
+      ...defaultNotification,
       ...payload
     };
 
@@ -39,10 +39,11 @@ const actions = {
 
     commit('INCREMENT_ID');
 
-    if (+payload.time > 0) {
+    if (+payload.timeout > 0) {
+      console.log("setTimeout")
       setTimeout(
         () => {
-          commit('DELETE_NOTIFICATION_WITH_ID', payload.id)
+          dispatch('DELETE_NOTIFICATION_WITH_ID', payload.id);
         },
         payload.timeout,
       );
@@ -51,8 +52,8 @@ const actions = {
     commit('PUSH_NOTIFICATION', payload);
   },
 
-  REMOVE_NOTIFICATION_BY_ID: ( { commit }, payload)  => {
-    commit('REMOVE_NOTIFICATION_BY_ID', payload);
+  DELETE_NOTIFICATION_WITH_ID: ( { commit }, payload)  => {
+    commit('DELETE_NOTIFICATION_WITH_ID', payload);
   },
 
   CLEAR_NOTIFICATIONS: ( { commit } ) => {

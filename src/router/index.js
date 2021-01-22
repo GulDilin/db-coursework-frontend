@@ -16,6 +16,10 @@ const routes = [
         components: {
           content: () => import("@/components/Login"),
         },
+        meta: {
+          requireAuth: false,
+          title: "Login"
+        }
       },
 
       {
@@ -24,6 +28,10 @@ const routes = [
         components: {
           content: () => import("@/components/Registration"),
         },
+        meta: {
+          requireAuth: false,
+          title: "Registration"
+        }
       },
     ]
   },
@@ -45,7 +53,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name != 'login' && !to.query.next) {
+  if (to.meta.requireAuth && to.name != 'login' && !to.query.next) {
     next({
         name: "login",
         query: {
@@ -55,6 +63,8 @@ router.beforeEach((to, from, next) => {
   }
 
   else if (to.fullPath != from.fullPath) next();
+
+  else next();
 });
 
 router.afterEach((to) => {

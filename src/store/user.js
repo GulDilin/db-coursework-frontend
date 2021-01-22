@@ -2,7 +2,7 @@
 
 const state = {
   token: "",
-  role: "guest",
+  roles: [],
   username: "",
   userinfo: null,
 };
@@ -36,9 +36,25 @@ const mutations = {
 };
 
 const actions = {
-  // LOGIN: ( { commit }, { username, password } ) => {
+  SIGN_IN: ( { commit }, { username, password } ) => {
+    return new Promise( (resolve) => {
+      console.log({ username, password });
+      commit("SET_USERNAME", username);
+      resolve();
+    })
+  },
 
-  // }
+  SIGN_UP: ( { commit, dispatch }, { username, password, email, roles } ) => {
+    return new Promise( (resolve) => {
+      console.log({ username, password, email, roles });
+      commit("SET_USERNAME", username);
+      dispatch("PUSH_NOTIFICATION", {
+        type: "success",
+        message: "Successful Registration"
+      });
+      resolve();
+    })
+  }
 };
 
 export default {

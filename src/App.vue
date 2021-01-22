@@ -17,3 +17,13 @@
     },
   };
 </script>
+
+<style>
+  .absolute {
+    position: absolute !important;
+  }
+
+  .z-3000 {
+    z-index: 3000;
+  }
+</style>

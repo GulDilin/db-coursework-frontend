@@ -2,7 +2,7 @@
   <transition-group
     name="list-transition"
     tag="div"
-    class="notification-b col-12 col-md-5 col-lg-3 col-xl-3"
+    class="col-12 col-md-5 col-lg-3 col-xl-3 fill-height absolute z-3000"
   >
     <v-alert
       v-for="notification in notifications"
@@ -10,25 +10,34 @@
       :key="notification.id"
       tile
       width="100%"
-      text
       small
       dense
     >
-      <v-row align="center" class="pa-0">
+      <v-row
+        align="center"
+        class="pa-0"
+      >
 
         <v-col class="grow pa-0">
-          <span v-if="notification.title" class="title d-block">
+          <span
+            v-if="notification.title"
+            class="title d-block"
+          >
             {{ notification.title }}
           </span>
 
           <span class="body-2">
-            {{ notification.text }}
+            {{ notification.message }}
           </span>
         </v-col>
 
         <v-col class="shrink pa-0">
-          <v-btn icon @click="deleteNotification(notification)" class="ml-auto d-inline">
-            <v-icon color="grey">fas fa-times</v-icon>
+          <v-btn
+            @click="deleteNotification(notification)"
+            icon
+            class="ml-auto d-inline"
+          >
+            <v-icon color="white">mdi-close</v-icon>
           </v-btn>
         </v-col>
 
@@ -43,7 +52,7 @@
 
     computed: {
       notifications() {
-        return this.$store.getters.getNotifications.filter(item => !!item.text);
+        return this.$store.getters.getNotifications;
       }
     },
 
