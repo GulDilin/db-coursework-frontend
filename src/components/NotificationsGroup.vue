@@ -2,7 +2,7 @@
   <transition-group
     name="list-transition"
     tag="div"
-    class="col-12 col-md-5 col-lg-3 col-xl-3 fill-height absolute z-3000"
+    class="col-12 col-md-5 col-lg-3 col-xl-3 fill-height absolute ml-10 z-20"
   >
     <v-alert
       v-for="notification in notifications"
