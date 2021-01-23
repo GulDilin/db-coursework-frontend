@@ -2,7 +2,7 @@
   <v-img
     src="@/assets/backgrounds/anime-bg-2.png"
     class="fill-height"
-    height="100vh"
+    min-height="100vh"
     gradient="#00000070, #00000030"
   >
     <v-col
@@ -66,7 +66,6 @@
                 :items="availableRoles"
                 label="Choose roles"
                 outlined
-                dense
                 small-chips
                 multiple
                 select-all
@@ -95,10 +94,10 @@
               </v-text-field>
 
               <v-select
-                v-model="sex"
+                v-model="gender"
                 :rules="[ rules.required ]"
-                :items="sexes"
-                label="Sex"
+                :items="genders"
+                label="Gender"
                 outlined
                 dense
               >
@@ -158,11 +157,10 @@
 
         firstName: "",
         lastName: "",
-        sex: "",
+        gender: "",
         placeOfBirth: "",
 
-        availableRoles: ["Admin", "Artist"],
-        sexes: ["male", "female"],
+        genders: ["male", "female"],
 
         rules: {
           ...RULES,
@@ -178,20 +176,28 @@
       signUp() {
         if (!this.$refs.form.validate()) return;
 
-        const { username, password, email, roles } = this;
+        const { username, password, email, roles, firstName, lastName, gender, placeOfBirth } = this;
         this.loading = true;
 
 
-        setTimeout( () => {
-          this.$store.dispatch("SIGN_UP", {
-            username,
-            password,
-            email,
-            roles,
-          }).then( () => {
-            this.loading = false
-          });
-        }, 1000);
+        this.$store.dispatch("SIGN_UP", {
+          username,
+          password,
+          email,
+          roles,
+          firstName,
+          lastName,
+          gender,
+          placeOfBirth,
+
+        })
+        .then( () => {
+          this.loading = false;
+          this.$router.push({ name: "login"});
+        })
+        .catch( () => {
+          this.loading = false;
+        });
       }
     },
 
@@ -202,7 +208,17 @@
 
       fieldTypePassword() {
         return this.showPassword ? 'text' : 'password';
-      }
+      },
+
+      availableRoles() {
+        return this.$store.getters.getAvailableRoles;
+      },
+    },
+
+    beforeRouteEnter(to, from, next) {
+      next( vm => {
+        vm.$store.dispatch("LOAD_AVAILABLE_ROLES");
+      })
     }
   };
 </script>
