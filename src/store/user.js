@@ -188,7 +188,7 @@ const actions = {
     commit("SET_TOKEN", undefined);
     commit("SET_USER_PROCESSES", undefined);
 
-    localStorage.deleteItem("MultiplicationServiceUser");
+    localStorage.removeItem("MultiplicationServiceUser");
 
     dispatch("PUSH_NOTIFICATION", {
       type: "success",

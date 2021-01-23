@@ -86,10 +86,19 @@
       <v-btn
         height="100%"
       >
-      <v-avatar>
-        <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
-      </v-avatar>
-    </v-btn>
+        <v-avatar>
+          <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+        </v-avatar>
+      </v-btn>
+
+      <v-btn
+        height="100%"
+        @click="signOut"
+      >
+        <v-icon>
+          mdi-logout
+        </v-icon>
+      </v-btn>
 
     </v-bottom-navigation>
   </v-main>
@@ -155,9 +164,10 @@
     filters: FILTERS,
 
     methods: {
-      updateExpand(ev) {
-        console.log({ev});
-      }
+      signOut() {
+        this.$store.dispatch("SIGN_OUT");
+        this.$router.push({ name: "login" });
+      },
     },
 
     beforeRouteEnter(to, from, next) {
