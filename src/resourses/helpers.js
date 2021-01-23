@@ -18,6 +18,10 @@ const FILTERS = {
 
     return v.slice(0, MAX_LEN) + "...";
   },
+
+  roleName(v) {
+    return v.startsWith("ROLE_") ? v.slice(5).replaceAll("_", " ") : v;
+  },
 };
 
 export {

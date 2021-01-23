@@ -72,12 +72,7 @@ const routes = [
         path: "processes",
         name: "processes",
         components: {
-          content: () => import("@/components/Plug")
-        },
-        props: {
-          content: {
-            title: "Processes page"
-          }
+          content: () => import("@/components/Processes")
         },
         meta: {
           requireAuth: true,
@@ -112,7 +107,7 @@ const routes = [
         },
         meta: {
           requireAuth: true,
-          requireProject: true,
+          requireProject: false,
           title: 'User Profile',
         },
       },
