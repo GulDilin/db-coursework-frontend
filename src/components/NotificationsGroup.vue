@@ -2,7 +2,7 @@
   <transition-group
     name="list-transition"
     tag="div"
-    class="col-12 col-md-5 col-lg-3 col-xl-3 fill-height absolute ml-10 z-20"
+    class="col-12 col-md-5 col-lg-3 col-xl-3 fill-height absolute ml-10"
   >
     <v-alert
       v-for="notification in notifications"
@@ -12,6 +12,7 @@
       width="100%"
       small
       dense
+      class="z-40"
     >
       <v-row
         align="center"
@@ -67,7 +68,7 @@
 <style scoped>
   .list-transition-enter, .list-transition-leave-to {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(-50px);
   }
 
   .list-transition-leave-active {
