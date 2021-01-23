@@ -4,7 +4,7 @@
       flat
       tile
       color="white"
-      class="fixed z-40"
+      class="fixed z-20"
       width="100%"
       style="top: 0"
     >
@@ -63,7 +63,6 @@
             </v-card-actions>
           </v-card>
         </v-row>
-      <!-- </v-simple-table> -->
     </v-img>
   </v-container>
 </template>
