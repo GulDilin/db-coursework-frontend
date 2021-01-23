@@ -55,7 +55,7 @@ const routes = [
           }
         },
         meta: {
-          requireAuth: false,
+          requireAuth: true,
           requireProject: false,
           title: 'Main',
         },
@@ -73,7 +73,7 @@ const routes = [
           }
         },
         meta: {
-          requireAuth: false,
+          requireAuth: true,
           requireProject: true,
           title: 'Processes',
         },
@@ -91,7 +91,7 @@ const routes = [
           }
         },
         meta: {
-          requireAuth: false,
+          requireAuth: true,
           requireProject: true,
           title: 'Project',
         },
@@ -114,9 +114,16 @@ const router = new Router({
   mode: "history",
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( async (to, from, next) => {
 
-  if (to.meta.requireAuth && to.name != 'login' && !to.query.next) {
+  if (!store.getters.getToken) {
+    await store.dispatch("SIGN_IN_SAVED");
+  }
+
+  if (
+    to.meta.requireAuth && to.name != 'login' &&
+    !to.query.next && !store.getters.getToken
+  ) {
     next({
         name: "login",
         query: {
