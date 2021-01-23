@@ -4,7 +4,6 @@
     gradient="#fffffff0, #ffffff90"
     height="100vh"
     width="100vw"
-    class="absolute"
   >
   <v-container
     class="fill-height align-start"
@@ -40,6 +39,7 @@
               color="red"
               height="20"
             >
+              {{ project.progress }} %
             </v-progress-linear>
           </v-card-actions>
         </v-card>

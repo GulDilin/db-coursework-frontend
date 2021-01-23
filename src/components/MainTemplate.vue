@@ -55,6 +55,7 @@
             color="red"
             height="30"
           >
+            {{ project.progress }} %
           </v-progress-linear>
         </v-card-actions>
 
@@ -85,6 +86,7 @@
 
       <v-btn
         height="100%"
+        :to="{ name: 'user' }"
       >
         <v-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>

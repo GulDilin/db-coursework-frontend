@@ -59,6 +59,7 @@
                 color="red"
                 height="20"
               >
+                {{ project.progress }} %
               </v-progress-linear>
             </v-card-actions>
           </v-card>
