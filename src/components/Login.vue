@@ -20,34 +20,35 @@
           <v-card-title>Login</v-card-title>
 
           <v-card-text class="pb-0">
-            <v-text-field
-              v-model="username"
-              :rules="[ rules.required ]"
-              label="Username"
-              outlined
-              dense
-            >
-            </v-text-field>
+            <v-form ref="form">
+              <v-text-field
+                v-model="username"
+                :rules="[ rules.required ]"
+                label="Username"
+                outlined
+                dense
+              >
+              </v-text-field>
 
-            <v-text-field
-              v-model="password"
-              :rules="[ rules.required ]"
-              :type="fieldTypePassword"
-              :append-icon="appendIconPassword"
-              @click:append="showPassword = !showPassword"
-              label="Password"
-              outlined
-              dense
-            >
-            </v-text-field>
-
+              <v-text-field
+                v-model="password"
+                :rules="[ rules.required ]"
+                :type="fieldTypePassword"
+                :append-icon="appendIconPassword"
+                @click:append="showPassword = !showPassword"
+                label="Password"
+                outlined
+                dense
+              >
+              </v-text-field>
+            </v-form>
           </v-card-text>
 
           <v-card-actions class="pa-4">
             <v-btn
               outlined
               color="primary"
-              :to="{ name: 'main' }"
+              @click="signIn"
             >
               Sign in
             </v-btn>
@@ -93,6 +94,22 @@
 
       fieldTypePassword() {
         return this.showPassword ? 'text' : 'password';
+      }
+    },
+
+    methods: {
+      signIn() {
+        if (!this.$refs.form.validate()) return;
+
+        const { username, password } = this;
+
+        this.$store.dispatch("SIGN_IN", {
+          username: username,
+          password: password,
+        })
+        .then( () => {
+          this.$router.push({ name: "main" });
+        })
       }
     }
   };
