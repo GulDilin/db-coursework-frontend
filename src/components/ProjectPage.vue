@@ -1,5 +1,4 @@
 <template>
-    <!-- src="@/assets/backgrounds/anime-bg-3.jpg" -->
   <v-img
     src="@/assets/backgrounds/anime-bg-3.jpg"
     gradient="#fffffff0, #ffffff90"
