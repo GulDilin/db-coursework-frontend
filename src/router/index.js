@@ -98,6 +98,19 @@ const routes = [
       },
 
       {
+        path: "user",
+        name: "user",
+        components: {
+          content: () => import("@/components/UserPage")
+        },
+        meta: {
+          requireAuth: true,
+          requireProject: true,
+          title: 'User Profile',
+        },
+      },
+
+      {
         path: "",
         redirect: {
           name: "main",
@@ -117,7 +130,7 @@ const router = new Router({
 router.beforeEach( async (to, from, next) => {
 
   if (!store.getters.getToken) {
-    await store.dispatch("SIGN_IN_SAVED");
+    store.dispatch("SIGN_IN_SAVED");
   }
 
   if (
