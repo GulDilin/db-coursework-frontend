@@ -2,6 +2,7 @@
   <v-img
     src="@/assets/backgrounds/anime-bg-2.png"
     class="fill-height"
+    height="100vh"
     gradient="#00000070, #00000030"
   >
     <v-col
