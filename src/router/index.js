@@ -35,6 +35,13 @@ const routes = [
           title: "Registration"
         }
       },
+
+      {
+        path: "",
+        redirect: {
+          name: "login",
+        },
+      },
     ]
   },
 
