@@ -7,6 +7,7 @@ const state = {
   username: "",
   userinfo: null,
   processes: null,
+  availableRoles: [],
 };
 
 const getters = {
@@ -17,6 +18,8 @@ const getters = {
   getUserInfo: state => state.userinfo,
 
   getUserRoles: state => state.roles,
+
+  getAvailableRoles: state => state.availableRoles,
 
   getUserProcesses: state => state.processes,
 };
@@ -35,7 +38,11 @@ const mutations = {
   },
 
   SET_USERROLES: (state, payload) => {
-    state.userinfo = payload;
+    state.roles = payload;
+  },
+
+  SET_AVAILABLE_ROLES: (state, payload) => {
+    state.availableRoles = payload;
   },
 
   SET_USER_PROCESSES: (state, payload) => {
@@ -44,6 +51,32 @@ const mutations = {
 };
 
 const actions = {
+
+  LOAD_AVAILABLE_ROLES: ({ commit, state, dispatch }) => {
+    return new Promise( (resolve, reject) => {
+      if (state.availableRoles.length) resolve(state.availableRoles);
+
+      else {
+        axios({
+          method: "get",
+          url: `${URL_API}/api/roles`,
+        })
+        .then( response => {
+          const { data } = response;
+          commit("SET_AVAILABLE_ROLES", data);
+          resolve();
+        })
+        .catch( () => {
+          reject();
+
+          dispatch("PUSH_NOTIFICATION", {
+            type: "error",
+            message: "Cannot load available user roles from server"
+          });
+        });
+      }
+    })
+  },
 
   SIGN_IN_SAVED: ({ commit }) => {
     return new Promise( (resolve, reject) => {
