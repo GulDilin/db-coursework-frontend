@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URL_API } from "@/settings";
 
 const state = {
   token: "",
@@ -60,6 +61,8 @@ const actions = {
         commit("SET_TOKEN", token);
         commit("SET_USER_PROCESSES", processes);
 
+        resolve();
+
       } catch {
         reject();
       }
@@ -71,6 +74,7 @@ const actions = {
       console.log({ username, password });
       axios({
         method: "post",
+        url: `${URL_API}/api/login`,
         data: {
           login: username,
           password: password,
@@ -102,16 +106,61 @@ const actions = {
     })
   },
 
-  SIGN_UP: ( { commit, dispatch }, { username, password, email, roles } ) => {
-    return new Promise( (resolve) => {
-      console.log({ username, password, email, roles });
-      commit("SET_USERNAME", username);
-      dispatch("PUSH_NOTIFICATION", {
-        type: "success",
-        message: "Successful Registration"
-      });
-      resolve();
+  SIGN_UP: ( { dispatch }, {
+      username, password, email, roles,
+      firstName,lastName, gender, placeOfBirth
+    }
+  ) => {
+    return new Promise( (resolve, reject) => {
+      console.log({ username, password, email, roles,
+      firstName,lastName, gender, placeOfBirth });
+
+      axios({
+        method: "post",
+        url: `${URL_API}/api/registration`,
+        data: {
+          login: username,
+          password: password,
+          email: email,
+          name: firstName,
+          secondName: lastName,
+          gender: gender,
+          placeOfBirth: placeOfBirth,
+          roles: roles,
+        }
+      })
+      .then( () => {
+
+        dispatch("PUSH_NOTIFICATION", {
+          type: "success",
+          message: "Successful Registration. Please sign in"
+        });
+
+        resolve();
+      })
+      .catch( () => {
+        dispatch("PUSH_NOTIFICATION", {
+          type: "error",
+          message: "Registration error"
+        });
+
+        reject();
+      })
     })
+  },
+
+  SIGN_OUT: ({ commit, dispatch }) => {
+    commit("SET_USERNAME", undefined);
+    commit("SET_USERROLES", undefined);
+    commit("SET_TOKEN", undefined);
+    commit("SET_USER_PROCESSES", undefined);
+
+    localStorage.deleteItem("MultiplicationServiceUser");
+
+    dispatch("PUSH_NOTIFICATION", {
+      type: "success",
+      message: "You was signed out"
+    });
   }
 };
 
