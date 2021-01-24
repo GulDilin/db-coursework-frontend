@@ -13,6 +13,7 @@
       <template v-slot:img>
         <v-img
           :src="project.img"
+          eager
           height="100%"
           gradient="#000000f0, #00000070"
         >

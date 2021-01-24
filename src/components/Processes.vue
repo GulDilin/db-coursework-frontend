@@ -17,7 +17,7 @@
           v-for="(processNames, role) in userProcesses"
         >
           <h3
-            :key="role"
+            :key="`${role}-header`"
             class="font-weight-light"
           >{{ role | roleName }}</h3>
 
@@ -41,27 +41,63 @@
           </v-expansion-panels>
 
         </template>
+
+        <v-btn
+          absolute
+          fab
+          right
+          dark
+          top
+          color="blue lighten-1"
+          class="mt-10"
+          @click="addDialog = true"
+        >
+          <v-icon>
+            mdi-plus
+          </v-icon>
+        </v-btn>
+
       </v-col>
     </v-container>
+
+    <v-dialog
+      v-model="addDialog"
+      max-width="800"
+    >
+      <AddProcessCard
+        :productId="productId"
+        @done="addDialog = false"
+      />
+    </v-dialog>
+
   </v-img>
 </template>
 
 <script>
   import { FILTERS } from "@/resourses/helpers";
+  import AddProcessCard from "@/components/AddProcessCard";
 
   export default {
     name: "Processes",
 
+    components: {
+      AddProcessCard,
+    },
+
     data() {
       return {
-
+        addDialog: false,
       };
     },
 
     computed: {
       userProcesses() {
         return this.$store.getters.getUserProcesses;
-      }
+      },
+
+      productId() {
+        return `${this.$store.getters.getProject.projectId}`;
+      },
     },
 
     filters: FILTERS,

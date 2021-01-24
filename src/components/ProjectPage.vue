@@ -58,11 +58,33 @@
         </v-card>
     </v-row>
 
+    <h3 class="font-weight-light my-4">All project processes</h3>
+    <v-row class="px-2">
+      <v-card
+        v-for="process in processes"
+        :key="process.mainProcessId"
+          width="300"
+          class="ma-2"
+      >
+        <v-card-text
+          class="font-weight-regular"
+        >
+          <div
+            v-for="(v, k) in process"
+            :key="k"
+          > {{ k }} : {{ v }} <br></div>
+        </v-card-text>
+      </v-card>
+    </v-row>
+
   </v-container>
 </v-img>
 </template>
 
 <script>
+import { URL_API } from "@/settings";
+  import axios from 'axios';
+
   export default {
     name: "ProjectPage",
 
@@ -75,6 +97,7 @@
 
     data() {
       return {
+        processes: [],
       };
     },
 
@@ -87,6 +110,23 @@
         return this.project.name ?? "select your project";
       },
     },
+
+    methods: {
+      loadProcesses() {
+        axios({
+          method: "get",
+          url: `${URL_API}/api/products/${this.project.productId}`,
+        })
+        .then( response => {
+          if (Array.isArray(response.data)) this.processes = response.data;
+        })
+      }
+    },
+
+
+    created() {
+      this.loadProcesses();
+    }
 
   }
 </script>

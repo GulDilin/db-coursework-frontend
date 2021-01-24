@@ -94,6 +94,8 @@ const actions = {
         commit("SET_TOKEN", token);
         commit("SET_USER_PROCESSES", processes);
 
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
         resolve();
 
       } catch {
@@ -126,6 +128,8 @@ const actions = {
         data.username = username;
         data.roles = roles;
         localStorage.setItem("MultiplicationServiceUser", JSON.stringify(data));
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
         resolve();
       })
@@ -189,6 +193,8 @@ const actions = {
     commit("SET_USER_PROCESSES", undefined);
 
     localStorage.removeItem("MultiplicationServiceUser");
+
+    axios.defaults.headers.common['Authorization'] = null;
 
     dispatch("PUSH_NOTIFICATION", {
       type: "success",

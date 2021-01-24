@@ -15,6 +15,7 @@
       height="100%"
       class="mt-8"
       gradient="217deg, #E67C6470, #9198e570"
+      min-height="90vh"
     >
         <v-row
           justify="center"
